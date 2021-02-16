@@ -21,6 +21,8 @@
 * winston
 * express-winston
 * dotenv
+* express-rate-limit
+* helmet
 
 ## Запуск проекта
 

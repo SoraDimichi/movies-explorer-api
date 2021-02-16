@@ -1,5 +1,5 @@
 {
-  "name": "express-mesto",
+  "name": "movies-explorer-api",
   "version": "1.0.0",
   "description": "`/public` — статика, полученная в результате билда фронтенд-приложения на Реакте  \r `/data` — JSON-файлы для временной эмуляции работы с базой данных  \r `/routes` — папка с файлами роутера",
   "main": "index.js",
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoraDimichi/express-mesto.git"
+    "url": "git+https://github.com/SoraDimichi/movies-explorer-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SoraDimichi/express-mesto/issues"
+    "url": "https://github.com/SoraDimichi/movies-explorer-api/issues"
   },
   "homepage": ".",
   "devDependencies": {
@@ -31,7 +31,9 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.5",
     "express-winston": "^4.0.5",
+    "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.7",
     "validator": "^13.5.2",
