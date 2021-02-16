@@ -3,7 +3,10 @@ const BadRequestError = require('./errors/BadRequestError');
 
 const celebrateErrorHandler = (err, req, res, next) => {
   if (isCelebrateError(err)) {
-    throw new BadRequestError(err.details.get('body').message);
+    const errorMessage = err.details.get('body') || err.details.get('params');
+    throw new BadRequestError(
+      errorMessage.details.map((error) => error.message.replace(/[^а-яёa-z0-9\s]/gi, '')).join(', '),
+    );
   }
   return next(err);
 };

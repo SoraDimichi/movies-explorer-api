@@ -9,7 +9,7 @@ const apiLimiter = rateLimit({
   },
 });
 
-const createUpdateLimiter = rateLimit({
+const userLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 20,
   handler: (req, res, next) => {
@@ -19,5 +19,5 @@ const createUpdateLimiter = rateLimit({
 
 module.exports = {
   apiLimiter,
-  createUpdateLimiter,
+  userLimiter,
 };

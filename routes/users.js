@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const { createUpdateLimiter } = require('../middlewares/limiter');
+const { userLimiter } = require('../middlewares/limiter');
 
 const {
-  validEmail,
-  validName,
+  validUser,
 } = require('../middlewares/validators');
 
 const {
@@ -12,6 +11,6 @@ const {
 } = require('../controllers/users');
 
 router.get('/users/me', getMyProfile);
-router.put('/users/me', validEmail, validName, createUpdateLimiter, updateMyProfile);
+router.put('/users/me', validUser, userLimiter, updateMyProfile);
 
 module.exports = router;
