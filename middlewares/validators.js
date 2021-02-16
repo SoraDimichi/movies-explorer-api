@@ -67,7 +67,6 @@ const validMovie = celebrate({
     'string.pattern.base': 'значение {#label} неправильное',
     'number.base': 'значение {#label} должено быть числом',
     'number.required': 'значение {#label} обязательно',
-    'number.empty': 'Имя тайтла на английском не должно быть пустой',
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
     'string.required': 'значение {#label} обязательно',
@@ -79,7 +78,11 @@ const validMovieId = celebrate({
   params: Joi.object().keys({
     movieId: Joi.number()
       .required(),
-  }),
+  }).messages({
+    'number.base': 'значение {#label} должено быть числом',
+    'number.required': 'значение {#label} обязательно',
+    'number.empty': 'значение {#label} не должно быть пустым',
+  }).options({ abortEarly: false }),
 });
 
 module.exports = {
