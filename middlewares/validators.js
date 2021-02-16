@@ -67,6 +67,7 @@ const validMovie = celebrate({
     'string.pattern.base': 'значение {#label} неправильное',
     'number.base': 'значение {#label} должено быть числом',
     'number.required': 'значение {#label} обязательно',
+    'number.empty': 'значение {#label} не должно быть пустым',
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
     'string.required': 'значение {#label} обязательно',
