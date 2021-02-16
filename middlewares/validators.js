@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const validUser = celebrate({
+const validEmailPasswordName = celebrate({
   body: Joi.object().keys({
     email: Joi.string()
       .required()
@@ -14,6 +14,26 @@ const validUser = celebrate({
       .messages({
         'string.pattern.base': 'значение {#label} не должно содержать пробелов',
       }),
+    name: Joi.string()
+      .min(2)
+      .max(30),
+  }).messages({
+    'string.base': 'значение {#label} должно быть строкой',
+    'string.empty': 'значение {#label} не должно быть пустым',
+    'string.min': 'значение {#label} должно быть не меньше {#limit}',
+    'string.max': 'значение {#label} должно быть не больше {#limit}',
+    'string.required': 'значение {#label} обязательно',
+    'string.email': 'значение {#label} неправильное',
+  }).options({ abortEarly: false }),
+});
+
+const validEmailName = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string()
+      .required()
+      .email()
+      .min(5)
+      .max(30),
     name: Joi.string()
       .min(2)
       .max(30),
@@ -63,7 +83,8 @@ const validMovieId = celebrate({
 });
 
 module.exports = {
-  validUser,
+  validEmailPasswordName,
+  validEmailName,
   validMovie,
   validMovieId,
 };

@@ -11,12 +11,12 @@ const {
 } = require('../controllers/users');
 
 const {
-  validUser,
+  validEmailPasswordName,
 } = require('../middlewares/validators');
 
 router.use(apiLimiter);
-router.post('/signin', validUser, login);
-router.post('/signup', validUser, userLimiter, createUser);
+router.post('/signin', validEmailPasswordName, login);
+router.post('/signup', validEmailPasswordName, userLimiter, createUser);
 router.use(auth);
 router.use('/', usersRouter);
 router.use('/', moviesRouter);
