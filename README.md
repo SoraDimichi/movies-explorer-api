@@ -13,7 +13,7 @@
 * express
 * mongoose
 * body-parser
-* bcrypt
+* bcryptjs
 * validator
 * jsonwebtoken
 * cors
