@@ -66,7 +66,6 @@ const validMovie = celebrate({
   }).messages({
     'string.pattern.base': 'значение {#label} неправильное',
     'number.base': 'значение {#label} должено быть числом',
-    'number.required': 'значение {#label} обязательно',
     'number.empty': 'значение {#label} не должно быть пустым',
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
@@ -81,8 +80,6 @@ const validMovieId = celebrate({
       .required(),
   }).messages({
     'number.base': 'значение {#label} должено быть числом',
-    'number.required': 'значение {#label} обязательно',
-    'number.empty': 'значение {#label} не должно быть пустым',
   }).options({ abortEarly: false }),
 });
 
