@@ -25,10 +25,10 @@ app.use(requestLogger);
 app.use(helmet());
 
 app.use('/', router);
-
-app.use(errorLogger);
 app.use(celebrateErrorHandler);
+app.use(errorLogger);
 app.use(errorHandler);
+
 /* eslint-disable no-console */
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
