@@ -13,7 +13,7 @@ const validEmailPasswordName = celebrate({
     'string.empty': 'значение {#label} не должно быть пустым',
     'string.min': 'значение {#label} должно быть не меньше {#limit}',
     'string.max': 'значение {#label} должно быть не больше {#limit}',
-    'string.required': 'значение {#label} обязательно',
+    'any.required': 'значение {#label} обязательно',
     'string.email': 'значение {#label} неправильное',
   }).options({ abortEarly: false }),
 });
@@ -25,7 +25,7 @@ const validEmailName = celebrate({
   }).messages({
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
-    'string.required': 'значение {#label} обязательно',
+    'any.required': 'значение {#label} обязательно',
     'string.email': 'значение {#label} неправильное',
   }).options({ abortEarly: false }),
 });
@@ -42,7 +42,7 @@ const validEmailPassword = celebrate({
     'string.empty': 'значение {#label} не должно быть пустым',
     'string.min': 'значение {#label} должно быть не меньше {#limit}',
     'string.max': 'значение {#label} должно быть не больше {#limit}',
-    'string.required': 'значение {#label} обязательно',
+    'any.required': 'значение {#label} обязательно',
     'string.email': 'значение {#label} неправильное',
   }).options({ abortEarly: false }),
 });
@@ -69,7 +69,7 @@ const validMovie = celebrate({
     'number.empty': 'значение {#label} не должно быть пустым',
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
-    'string.required': 'значение {#label} обязательно',
+    'any.required': 'значение {#label} обязательно',
     'string.email': 'значение {#label} неправильное',
   }).options({ abortEarly: false }),
 });
@@ -79,7 +79,7 @@ const validMovieId = celebrate({
     movieId: Joi.string().required().length(24).hex(),
   }).messages({
     'string.base': 'значение {#label} должено быть строкой',
-    'string.required': 'значение {#label} обязательно',
+    'any.required': 'значение {#label} обязательно',
     'string.hex': 'значение {#label} должно быть шестнадцатеричным числом',
     'string.length': 'значение {#label} должно быть {#limit} длинной',
   }).options({ abortEarly: false }),
