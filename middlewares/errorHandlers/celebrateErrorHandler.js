@@ -1,5 +1,5 @@
 const { isCelebrateError } = require('celebrate');
-const BadRequestError = require('./errors/BadRequestError');
+const BadRequestError = require('../../constants/errors/BadRequestError');
 
 const celebrateErrorHandler = (err, req, res, next) => {
   if (isCelebrateError(err)) {
@@ -8,7 +8,7 @@ const celebrateErrorHandler = (err, req, res, next) => {
       errorMessage.details.map((error) => error.message.replace(/[^а-яёa-z0-9\s]/gi, '')).join(', '),
     );
   }
-  return next(err);
+  next(err);
 };
 
 module.exports = celebrateErrorHandler;

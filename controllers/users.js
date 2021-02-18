@@ -4,9 +4,9 @@ const User = require('../models/user');
 const { SALT_ROUNDS } = require('../config');
 const { getJWTToken } = require('../middlewares/getJWTToken');
 
-const UnauthorizedError = require('../middlewares/errors/UnauthorizedError');
-const NotFoundError = require('../middlewares/errors/NotFoundError');
-const ConflictError = require('../middlewares/errors/ConflictError');
+const UnauthorizedError = require('../constants/errors/UnauthorizedError');
+const NotFoundError = require('../constants/errors/NotFoundError');
+const ConflictError = require('../constants/errors/ConflictError');
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -18,7 +18,7 @@ const login = async (req, res, next) => {
     const isValid = await bcrypt.compare(password, user.password);
     if (isValid) {
       const token = getJWTToken({ id: user._id });
-      res.status(200).send({ token });
+      res.send({ token });
     } else {
       next(new UnauthorizedError('Неправильный пароль'));
     }
@@ -35,7 +35,7 @@ const createUser = async (req, res, next) => {
       const cryptedPassword = await bcrypt.hash(password, Number(SALT_ROUNDS));
       const createdUser = await User.create({ email, password: cryptedPassword, name });
       const { _id } = createdUser;
-      res.status(200).send({ _id, email });
+      res.send({ _id, email });
     } else {
       next(new UnauthorizedError('Такой пользователь существует'));
     }
@@ -48,7 +48,7 @@ const getMyProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id)
       .orFail(new NotFoundError('Пользователь не найден'));
-    res.status(200).send(user);
+    res.send(user);
   } catch (err) {
     next(err);
   }
@@ -64,7 +64,7 @@ const updateMyProfile = async (req, res, next) => {
         { email, name },
         { new: true, runValidators: true },
       ).orFail(new NotFoundError('Пользователь не найден'));
-      res.status(200).send({ email, name });
+      res.send({ email, name });
     } else {
       next(new ConflictError('Пользователь с таким email уже существует'));
     }

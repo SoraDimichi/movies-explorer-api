@@ -1,7 +1,8 @@
 const Movie = require('../models/movie');
 
-const NotFoundError = require('../middlewares/errors/NotFoundError');
-const ConflictError = require('../middlewares/errors/ConflictError');
+const NotFoundError = require('../constants/errors/NotFoundError');
+const ConflictError = require('../constants/errors/ConflictError');
+const ForbiddenError = require('../constants/errors/ForbiddenError');
 
 const createMovie = async (req, res, next) => {
   const {
@@ -27,7 +28,7 @@ const createMovie = async (req, res, next) => {
           nameEN,
           movieId,
         });
-      res.status(200).send(newMovie);
+      res.send(newMovie);
     } else {
       next(new ConflictError('Такой тайтл вы уже рекомендовали'));
     }
@@ -41,7 +42,7 @@ const getMovies = async (req, res, next) => {
   try {
     const movies = await Movie.find({ owner })
       .orFail(new NotFoundError('Вы еще не рекомедовали тайтлы'));
-    res.status(200).send(movies);
+    res.send(movies);
   } catch (err) {
     next(err);
   }
@@ -49,11 +50,15 @@ const getMovies = async (req, res, next) => {
 
 const deleteMovie = async (req, res, next) => {
   const { movieId } = req.params;
-  const owner = req.user.id;
   try {
-    const deletedMovie = await Movie.findOneAndDelete({ movieId, owner })
+    const movie = await Movie.findById(movieId)
       .orFail(new NotFoundError('Тайтл не найден'));
-    res.status(200).send(deletedMovie);
+    if (req.user.id.toString() === movie.owner.toString()) {
+      const deletedMovie = await Movie.findByIdAndDelete(movieId);
+      res.send(deletedMovie);
+    } else {
+      next(new ForbiddenError('Не вы рекомендовали этот тайтл'));
+    }
   } catch (err) {
     next(err);
   }

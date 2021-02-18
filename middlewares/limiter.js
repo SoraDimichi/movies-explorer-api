@@ -1,5 +1,5 @@
 const rateLimit = require('express-rate-limit');
-const TooManyRequestsError = require('./errors/TooManyRequestsError');
+const TooManyRequestsError = require('../constants/errors/TooManyRequestsError');
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -9,15 +9,4 @@ const apiLimiter = rateLimit({
   },
 });
 
-const userLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 20,
-  handler: (req, res, next) => {
-    next(new TooManyRequestsError('Слишком много запросов, попробуйте через час'));
-  },
-});
-
-module.exports = {
-  apiLimiter,
-  userLimiter,
-};
+module.exports = apiLimiter;

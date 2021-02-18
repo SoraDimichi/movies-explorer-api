@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { userLimiter } = require('../middlewares/limiter');
 
 const {
   validEmailName,
@@ -11,6 +10,6 @@ const {
 } = require('../controllers/users');
 
 router.get('/users/me', getMyProfile);
-router.put('/users/me', validEmailName, userLimiter, updateMyProfile);
+router.patch('/users/me', validEmailName, updateMyProfile);
 
 module.exports = router;

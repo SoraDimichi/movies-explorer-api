@@ -1,22 +1,19 @@
 const router = require('express').Router();
-const { userLimiter, apiLimiter } = require('../middlewares/limiter');
 const auth = require('../middlewares/auth');
-const BadRequestError = require('../middlewares/errors/BadRequestError');
+const BadRequestError = require('../constants/errors/BadRequestError');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
-
 const {
   login,
   createUser,
 } = require('../controllers/users');
-
 const {
   validEmailPasswordName,
+  validEmailPassword,
 } = require('../middlewares/validators');
 
-router.use(apiLimiter);
-router.post('/signin', validEmailPasswordName, login);
-router.post('/signup', validEmailPasswordName, userLimiter, createUser);
+router.post('/signin', validEmailPassword, login);
+router.post('/signup', validEmailPasswordName, createUser);
 router.use(auth);
 router.use('/', usersRouter);
 router.use('/', moviesRouter);

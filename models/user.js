@@ -2,25 +2,25 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    minlength: 2,
-    maxlength: 30,
-    default: 'Анонимус',
-  },
   email: {
     type: String,
     unique: true,
-    required: true,
+    required: [true, 'значение email обязательно'],
     validate: {
       validator: (email) => validator.isEmail(email),
-      message: 'Невалидный email',
+      message: 'значение email неправильное',
     },
   },
   password: {
     type: String,
-    required: true,
+    required: [true, 'значение password обязательно'],
     select: false,
+  },
+  name: {
+    type: String,
+    required: [true, 'значение name обязательно'],
+    minlength: [2, 'значение name должно быть не меньше 2'],
+    maxlength: [30, 'значение name должно быть больше 30'],
   },
 }, { versionKey: false });
 

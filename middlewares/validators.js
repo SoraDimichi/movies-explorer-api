@@ -2,21 +2,12 @@ const { celebrate, Joi } = require('celebrate');
 
 const validEmailPasswordName = celebrate({
   body: Joi.object().keys({
-    email: Joi.string()
-      .required()
-      .email()
-      .min(5)
-      .max(30),
-    password: Joi.string()
-      .required()
-      .regex(RegExp(/^\S*$/))
-      .min(6)
+    email: Joi.string().required().email(),
+    password: Joi.string().required().regex(RegExp(/^\S*$/))
       .messages({
         'string.pattern.base': 'значение {#label} не должно содержать пробелов',
       }),
-    name: Joi.string()
-      .min(2)
-      .max(30),
+    name: Joi.string().required().min(2).max(30),
   }).messages({
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
@@ -29,14 +20,23 @@ const validEmailPasswordName = celebrate({
 
 const validEmailName = celebrate({
   body: Joi.object().keys({
-    email: Joi.string()
-      .required()
-      .email()
-      .min(5)
-      .max(30),
-    name: Joi.string()
-      .min(2)
-      .max(30),
+    email: Joi.string().required().email(),
+    name: Joi.string().required().min(2).max(30),
+  }).messages({
+    'string.base': 'значение {#label} должно быть строкой',
+    'string.empty': 'значение {#label} не должно быть пустым',
+    'string.required': 'значение {#label} обязательно',
+    'string.email': 'значение {#label} неправильное',
+  }).options({ abortEarly: false }),
+});
+
+const validEmailPassword = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().regex(RegExp(/^\S*$/))
+      .messages({
+        'string.pattern.base': 'значение {#label} не должно содержать пробелов',
+      }),
   }).messages({
     'string.base': 'значение {#label} должно быть строкой',
     'string.empty': 'значение {#label} не должно быть пустым',
@@ -76,15 +76,18 @@ const validMovie = celebrate({
 
 const validMovieId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.number()
-      .required(),
+    movieId: Joi.string().required().length(24).hex(),
   }).messages({
-    'number.base': 'значение {#label} должено быть числом',
+    'string.base': 'значение {#label} должено быть строкой',
+    'string.required': 'значение {#label} обязательно',
+    'string.hex': 'значение {#label} должно быть шестнадцатеричным числом',
+    'string.length': 'значение {#label} должно быть {#limit} длинной',
   }).options({ abortEarly: false }),
 });
 
 module.exports = {
   validEmailPasswordName,
+  validEmailPassword,
   validEmailName,
   validMovie,
   validMovieId,

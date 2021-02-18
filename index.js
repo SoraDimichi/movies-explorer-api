@@ -5,8 +5,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { MONGO_URL, PORT } = require('./config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const celebrateErrorHandler = require('./middlewares/celebrateErrorHandler');
-const errorHandler = require('./middlewares/errorHandler');
+const apiLimiter = require('./middlewares/limiter');
+const celebrateErrorHandler = require('./middlewares/errorHandlers/celebrateErrorHandler');
+const mongooseErrorHandler = require('./middlewares/errorHandlers/mongooseErrorHandler');
+const errorHandler = require('./middlewares/errorHandlers/errorHandler');
 
 const app = express();
 
@@ -19,6 +21,7 @@ mongoose.connect(MONGO_URL, {
   useUnifiedTopology: true,
 });
 
+app.use(apiLimiter);
 app.use(bodyParser.json());
 app.use(cors());
 app.use(requestLogger);
@@ -26,11 +29,10 @@ app.use(helmet());
 
 app.use('/', router);
 app.use(celebrateErrorHandler);
+app.use(mongooseErrorHandler);
 app.use(errorLogger);
 app.use(errorHandler);
 
-/* eslint-disable no-console */
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
-/* eslint-disable no-console */
