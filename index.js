@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const { MONGO_URL, PORT } = require('./config');
+const { MONGO_URL, PORT } = require('./ultils/config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const apiLimiter = require('./middlewares/limiter');
 const celebrateErrorHandler = require('./middlewares/errorHandlers/celebrateErrorHandler');
@@ -20,13 +20,13 @@ mongoose.connect(MONGO_URL, {
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
-
-app.use(apiLimiter);
-app.use(bodyParser.json());
 app.use(cors());
-app.use(requestLogger);
-app.use(helmet());
+app.use(bodyParser.json());
 
+app.use(helmet());
+app.use(apiLimiter);
+
+app.use(requestLogger);
 app.use('/', router);
 app.use(celebrateErrorHandler);
 app.use(mongooseErrorHandler);
@@ -34,5 +34,6 @@ app.use(errorLogger);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`App listening on port ${PORT}`);
 });

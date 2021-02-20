@@ -1,5 +1,5 @@
 const { isCelebrateError } = require('celebrate');
-const BadRequestError = require('../../constants/errors/BadRequestError');
+const BadRequestError = require('../../ultils/errors/BadRequestError');
 
 const celebrateErrorHandler = (err, req, res, next) => {
   if (isCelebrateError(err)) {

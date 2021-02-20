@@ -1,8 +1,8 @@
 const Movie = require('../models/movie');
 
-const NotFoundError = require('../constants/errors/NotFoundError');
-const ConflictError = require('../constants/errors/ConflictError');
-const ForbiddenError = require('../constants/errors/ForbiddenError');
+const NotFoundError = require('../ultils/errors/NotFoundError');
+const ConflictError = require('../ultils/errors/ConflictError');
+const ForbiddenError = require('../ultils/errors/ForbiddenError');
 
 const createMovie = async (req, res, next) => {
   const {
@@ -54,7 +54,7 @@ const deleteMovie = async (req, res, next) => {
     const movie = await Movie.findById(movieId)
       .orFail(new NotFoundError('Тайтл не найден'));
     if (req.user.id.toString() === movie.owner.toString()) {
-      const deletedMovie = await Movie.findByIdAndDelete(movieId);
+      const deletedMovie = await Movie.remove(movieId);
       res.send(deletedMovie);
     } else {
       next(new ForbiddenError('Не вы рекомендовали этот тайтл'));

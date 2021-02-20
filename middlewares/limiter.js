@@ -1,5 +1,5 @@
 const rateLimit = require('express-rate-limit');
-const TooManyRequestsError = require('../constants/errors/TooManyRequestsError');
+const TooManyRequestsError = require('../ultils/errors/TooManyRequestsError');
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

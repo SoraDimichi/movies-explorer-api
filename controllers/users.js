@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
-const { SALT_ROUNDS } = require('../config');
+const { SALT_ROUNDS } = require('../ultils/config');
 const { getJWTToken } = require('../middlewares/getJWTToken');
 
-const UnauthorizedError = require('../constants/errors/UnauthorizedError');
-const NotFoundError = require('../constants/errors/NotFoundError');
-const ConflictError = require('../constants/errors/ConflictError');
+const UnauthorizedError = require('../ultils/errors/UnauthorizedError');
+const NotFoundError = require('../ultils/errors/NotFoundError');
+const ConflictError = require('../ultils/errors/ConflictError');
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;

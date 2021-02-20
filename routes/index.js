@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const auth = require('../middlewares/auth');
-const BadRequestError = require('../constants/errors/BadRequestError');
+const NotFoundError = require('../ultils/errors/NotFoundError');
 const usersRouter = require('./users');
 const moviesRouter = require('./movies');
 const {
@@ -14,11 +14,11 @@ const {
 
 router.post('/signin', validEmailPassword, login);
 router.post('/signup', validEmailPasswordName, createUser);
-router.use(auth);
-router.use('/', usersRouter);
-router.use('/', moviesRouter);
+router.use('/', auth, usersRouter);
+router.use('/', auth, moviesRouter);
+
 router.use('*', () => {
-  throw new BadRequestError('Запрашиваемый ресурс не найден');
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
 });
 
 module.exports = router;
