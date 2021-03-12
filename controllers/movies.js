@@ -54,8 +54,8 @@ const deleteMovie = async (req, res, next) => {
     const movie = await Movie.findById(movieId)
       .orFail(new NotFoundError('Тайтл не найден'));
     if (req.user.id.toString() === movie.owner.toString()) {
-      const deletedMovie = await Movie.findByIdAndDelete(movieId);
-      res.send(deletedMovie);
+      await Movie.remove(movie);
+      res.send(movie);
     } else {
       next(new ForbiddenError('Не вы рекомендовали этот тайтл'));
     }
