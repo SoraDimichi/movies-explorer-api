@@ -2,6 +2,8 @@
 
 Апи для авторизации и регистрации пользователя на node-express + mongodb
 
+https://api.movies-explorer.soradimichi.com
+
 ## Директории
 
 `/public` — статика, полученная в результате билда фронтенд-приложения на Реакте  
@@ -13,7 +15,7 @@
 * express
 * mongoose
 * body-parser
-* bcrypt
+* bcryptjs
 * validator
 * jsonwebtoken
 * cors
@@ -21,6 +23,8 @@
 * winston
 * express-winston
 * dotenv
+* express-rate-limit
+* helmet
 
 ## Запуск проекта
 
